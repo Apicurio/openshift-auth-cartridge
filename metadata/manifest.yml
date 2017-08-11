@@ -1,5 +1,5 @@
-Name: apicurioauth
-Cartridge-Short-Name: APICURIOAUTH
+Name: wildfly
+Cartridge-Short-Name: WILDFLY
 Display-Name: Auth Server for Apicurio Studio
 Description: "Provides authentiation for Apicurio Studio - Try Live Edition"
 Version: '10'
