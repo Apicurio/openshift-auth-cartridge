@@ -31,10 +31,10 @@ echo "$password" > $OPENSHIFT_WILDFLY_DIR/env/OPENSHIFT_WILDFLY_PASSWORD
 
 update-configuration java8
 
-$OPENSHIFT_WILDFLY_DIR/bin/add-user.sh --user ${username} --password ${password} --silent --enable
+$OPENSHIFT_WILDFLY_DIR/bin/add-keycloak-user.sh --user ${username} --password ${password} --silent --enable
 
 client_result ""
-client_result "WildFly 10 administrator added.  Please make note of these credentials:"
+client_result "Authentication administrator added.  Please make note of these credentials:"
 client_result ""
 client_result "   Username: $username"
 client_result "   Password: $password"
