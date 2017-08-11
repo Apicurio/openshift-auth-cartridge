@@ -125,7 +125,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/KeycloakDS" pool-name="KeycloakDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:${jboss.server.data.dir}/keycloak;AUTO_SERVER=TRUE</connection-url>
+                    <connection-url>jdbc:h2:${jboss.server.data.dir}/keycloak;AUTO_SERVER=FALSE</connection-url>
                     <driver>h2</driver>
                     <security>
                         <user-name>sa</user-name>
@@ -363,7 +363,7 @@
         <subsystem xmlns="urn:jboss:domain:undertow:3.0">
             <buffer-cache name="default"/>
             <server name="default-server">
-                <http-listener name="default" socket-binding="http" redirect-socket="https"/>
+                <http-listener name="default" socket-binding="http" proxy-address-forwarding="true" redirect-socket="https"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <filter-ref name="server-header"/>
@@ -450,10 +450,16 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <loopback-address value="${env.OPENSHIFT_WILDFLY_IP}"/>
         </interface>
         <interface name="public">
             <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+        </interface>
+        <interface name="unsecure">
+            <loopback-address value="${env.OPENSHIFT_WILDFLY_IP}"/>
+        </interface>
+        <interface name="private">
+            <loopback-address value="${env.OPENSHIFT_WILDFLY_IP}"/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
